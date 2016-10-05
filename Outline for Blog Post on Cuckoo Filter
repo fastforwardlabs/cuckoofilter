@@ -2,13 +2,27 @@ Outline for Blog Post on Cuckoo Filter
 
 -Intro paragraph on probabilistic data structures
 -Reference past report by fast forward labs with respect to streaming algos
-- Now we'd like to focus on a recent algorithm that didn't go into that report. 
--Cuckoo filter
--Short overview of cuckoo filter
--paper has details on that
+- Now we'd like to focus on a recent algorithm that didn't go into that report. (2 paragraphs)
+
+
+-Cuckoo filter()
+	-explain the bloom filter first
+		2 paragraphs
+	-now say what changes with the cuckoo filter
+		1-2 paragraphs
+		use paper
+
+-python implementation
+
 -here with do a quick comparison of the cuckoo filter with bloom etc. 
 	-timing comparison
 	-false positive comparison
 
--here is a simple implementation that people can play with 
--thanks
+-situation where you can use a cuckoo filter vs a bloom filter
+
+-conclusion of the paper is where you highlight the business need. 
+
+The case that I look at are the ones that support the advantages of the cuckoo filter use. 
+
+--check for pep8 specifications for the codebase. 
+--install the package to double check that.  
