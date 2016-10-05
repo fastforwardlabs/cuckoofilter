@@ -1,5 +1,11 @@
 
-Probabilistic data structures are an important class of data structures that have been increasingly useful in a variety of applications, particularly in streaming applications and use cases that require a significant amount of space. In general, data structures help organize data so that queries about the data can be answered efficiently when posed. Often, these data structures provide exact answers to queries posed about data stored in them. In contrast, probabilistic data structures do not provide exact answers to queries about data stored in them; they typically provide probabilistic estimates to these queries. 
+Probabilistic data structures are an important class of data structures that have been increasingly
+useful in a variety of applications, particularly in streaming applications and use cases that require a 
+significant amount of space. In general, data structures help organize data so that queries about the 
+data can be answered efficiently when posed. Often, these data structures provide exact answers to 
+queries posed about data stored in them. In contrast, probabilistic data structures do not provide exact
+answers to queries about data stored in them; they typically provide probabilistic estimates to these 
+queries. 
 
 To illustrate this point we'll look at the popular use case of testing to see whether an item in a stream of data has been encountered before; membership testing. In the standard case where the data to be analyzed is small enough to fit into memory, each data encountered in the stream can be inserted into a set data structure. Once we hit an item for which we would like to test whether we've seen before, we can check to see if it is in the set. This approach works when the data stream is small enough to fit into available memory. However, when we have more data than can fit into memory, it might be cumbersome or impossible to use a set for the membership query. Probabilistic data structures are designed to take advantage of such situations. Often in computer science, there is a trade-off between time-efficiency and the amount of space used. Probabilistic data structures trade off space for exact answers to queries about data stored in them. 
 
