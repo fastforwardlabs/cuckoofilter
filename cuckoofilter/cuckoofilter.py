@@ -1,102 +1,104 @@
-import mmh3 #used for hashing items
+import mmh3  # used for hashing items
 import random
 
 from . import cuckootable
 
+
 class CuckooFilter:
 
-	def __init__(self, filter_capacity, item_fingerprint_size, num_swaps=100, bucket_size=4):
-		self.filter_capacity = filter_capacity
-		self.item_fingerprint_size = item_fingerprint_size
-		self.num_swaps = num_swaps
-		self.bucket_size = bucket_size
-		self.cuckoo_size = 0
-		self.table = []
+    def __init__(self, filter_capacity, 
+    	item_fingerprint_size, num_swaps=100, bucket_size=4):
+    
+        self.filter_capacity = filter_capacity
+        self.item_fingerprint_size = item_fingerprint_size
+        self.num_swaps = num_swaps
+        self.bucket_size = bucket_size
+        self.cuckoo_size = 0
+        self.table = []
 
-		#load factor
-		#initialize the entire table. 
-		for i in range(self.filter_capacity):
-			self.table.append(cuckootable.CuckooTable(size=self.bucket_size))
+        # load factor
+        # initialize the entire table.
+        for i in range(self.filter_capacity):
+            self.table.append(cuckootable.CuckooTable(size=self.bucket_size))
 
-	def obtain_fingerprint(self, string_item):
-		hash_value = mmh3.hash_bytes(string_item)
-		fingerprint = hash_value[:self.item_fingerprint_size]
-		return fingerprint
+    def obtain_fingerprint(self, string_item):
+        hash_value = mmh3.hash_bytes(string_item)
+        fingerprint = hash_value[:self.item_fingerprint_size]
+        return fingerprint
 
-	def obtain_index_from_hash(self, string_item):
-		hash_value = mmh3.hash_bytes(string_item)
-		index = int.from_bytes(hash_value, byteorder="big")
-		index = index % self.filter_capacity
-		return index
+    def obtain_index_from_hash(self, string_item):
+        hash_value = mmh3.hash_bytes(string_item)
+        index = int.from_bytes(hash_value, byteorder="big")
+        index = index % self.filter_capacity
+        return index
 
-	def obtain_indices_from_item(self, string_item):
-		#insert into the cuckoo table
-		index_1 = self.obtain_index_from_hash(string_item)
+    def obtain_indices_from_item(self, string_item):
+        # insert into the cuckoo table
+        index_1 = self.obtain_index_from_hash(string_item)
 
-		fingerprint = self.obtain_fingerprint(string_item)
+        fingerprint = self.obtain_fingerprint(string_item)
 
-		index_2 = index_1 ^ self.obtain_index_from_hash(fingerprint)
-		index_2 = index_2 % self.filter_capacity
+        index_2 = index_1 ^ self.obtain_index_from_hash(fingerprint)
+        index_2 = index_2 % self.filter_capacity
 
-		return index_1, index_2
+        return index_1, index_2
 
-	def insert(self, item_to_insert):
+    def insert(self, item_to_insert):
 
-		index_1, index_2 = self.obtain_indices_from_item(item_to_insert)
-		item_fingerprint = self.obtain_fingerprint(item_to_insert)
+        index_1, index_2 = self.obtain_indices_from_item(item_to_insert)
+        item_fingerprint = self.obtain_fingerprint(item_to_insert)
 
-		if self.table[index_1].insert(item_fingerprint):
-			self.cuckoo_size += 1
-			return index_1
+        if self.table[index_1].insert(item_fingerprint):
+            self.cuckoo_size += 1
+            return index_1
 
-		if self.table[index_2].insert(item_fingerprint):
-			self.cuckoo_size += 1
-			return index_2
+        if self.table[index_2].insert(item_fingerprint):
+            self.cuckoo_size += 1
+            return index_2
 
-		#if both indices are full, now we need to swap all current entries. 
-		#first randomly pick btw index 1 and 2
-		random_index = random.choice((index_1, index_2))
+        # if both indices are full, now we need to swap all current entries.
+        # first randomly pick btw index 1 and 2
+        random_index = random.choice((index_1, index_2))
 
-		for swap in range(self.num_swaps):
-			item_fingerprint = self.table[random_index].swap_fingerprints(item_fingerprint)
+        for swap in range(self.num_swaps):
+            item_fingerprint = self.table[
+                random_index].swap_fingerprints(item_fingerprint)
 
-			random_index = random_index ^ self.obtain_index_from_hash(item_fingerprint)
-			random_index = random_index % self.filter_capacity
+            random_index = random_index ^ self.obtain_index_from_hash(
+                item_fingerprint)
+            random_index = random_index % self.filter_capacity
 
-			if self.table[random_index].insert(item_fingerprint):
-				return random_index
+            if self.table[random_index].insert(item_fingerprint):
+                return random_index
 
-		self.size  = self.size -1 # this might not be necessary since the table is now full anyway
-		raise Exception("The CuckooTable is now Full!")
+        # this might not be necessary since the table is now full anyway
+        self.size = self.size - 1
+        raise Exception("The CuckooTable is now Full!")
 
+    def remove(self, item_to_remove):
+        item_fingerprint = self.obtain_fingerprint(item_to_remove)
+        index_1, index_2 = self.obtain_indices_from_item(item_to_remove)
 
-	def remove(self, item_to_remove):
-		item_fingerprint = self.obtain_fingerprint(item_to_remove)
-		index_1, index_2 = self.obtain_indices_from_item(item_to_remove)
+        if self.table[index_1].delete(item_fingerprint):
+            self.size = self.size - 1
+            return True
 
-		if self.table[index_1].delete(item_fingerprint):
-			self.size = self.size - 1 
-			return True
+        if self.table[index_2].delete(item_fingerprint):
+            self.size = self.size - 1
+            return True
 
-		if self.table[index_2].delete(item_fingerprint):
-			self.size = self.size - 1
-			return True
+        return False
 
-		return False
+    def __contains__(self, item_to_test):
+        item_fingerprint = self.obtain_fingerprint(item_to_test)
 
+        index_1, index_2 = self.obtain_indices_from_item(item_to_test)
 
-	def __contains__(self, item_to_test):
-		item_fingerprint = self.obtain_fingerprint(item_to_test)
+        bool_contains = (item_fingerprint in self.table[index_1]) or (
+            item_fingerprint in self.table[index_2])
 
-		index_1, index_2 = self.obtain_indices_from_item(item_to_test)
+        return bool_contains
 
-		bool_contains = (item_fingerprint in self.table[index_1]) or (item_fingerprint in self.table[index_2])
-
-		return bool_contains
-
-
-	def get_load_factor(sefl):
-		load_factor = self.size / (self.filter_capacity * self.bucket_size)
-		return load_factor
-
-
+    def get_load_factor(sefl):
+        load_factor = self.size / (self.filter_capacity * self.bucket_size)
+        return load_factor

@@ -1,2 +1,2 @@
 import pytest
-from cuckoofilter import CuckooTable 
+from cuckoofilter import CuckooTable
