@@ -33,6 +33,9 @@ Depending on the capacity (size), number of hash functions, and other specificat
 filter, the error rate of a bloom filter can actually be bounded. 
 
 
-At Fast Forward Labs, bloom filters and a variety of other probabilistic data structures were considered and explored in detail in the report, "Probabilistic Methods for Real-time Streams." The report explored K-Min values, LogLog Counters, and their variants. Applications 
+At Fast Forward Labs, bloom filters and a variety of other probabilistic data structures were considered 
+and explored in detail in the report, "Probabilistic Methods for Real-time Streams." The report explored 
+K-Min values, LogLog Counters, and their variants. Applications 
+
 
 
