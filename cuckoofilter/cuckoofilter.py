@@ -6,11 +6,11 @@ from . import cuckootable
 
 class CuckooFilter:
 
-    def __init__(self, filter_capacity, 
-    	item_fingerprint_size, num_swaps=100, bucket_size=4):
-    
+    def __init__(self, filter_capacity,
+                 item_fingerprint_size, num_swaps=100, bucket_size=4):
+
         self.filter_capacity = filter_capacity
-        self.item_fingerprint_size = item_fingerprint_size
+        self.item_fingerprint_size = item_fingerprint_sizemm
         self.num_swaps = num_swaps
         self.bucket_size = bucket_size
         self.cuckoo_size = 0
@@ -69,11 +69,11 @@ class CuckooFilter:
             random_index = random_index % self.filter_capacity
 
             if self.table[random_index].insert(item_fingerprint):
+            	self.cuckoo_size += 1
                 return random_index
 
         # this might not be necessary since the table is now full anyway
-        self.size = self.size - 1
-        raise Exception("The CuckooTable is now Full!")
+        raise Exception("The CuckooFilter is now full!")
 
     def remove(self, item_to_remove):
         item_fingerprint = self.obtain_fingerprint(item_to_remove)
@@ -99,6 +99,6 @@ class CuckooFilter:
 
         return bool_contains
 
-    def get_load_factor(sefl):
+    def get_load_factor(self):
         load_factor = self.size / (self.filter_capacity * self.bucket_size)
         return load_factor

@@ -30,12 +30,10 @@ item in question has not been seen before. Hence, membership testing using bloom
 false positives, however, it eliminates false negatives. This means if a membership test for a bloom 
 filter returns false, then one can be certain that the item in question has not been seen before. 
 Depending on the capacity (size), number of hash functions, and other specifications for the bloom 
-filter, the error rate of a bloom filter can actually be bounded. 
+filter, the error rate of a bloom filter can actually be bounded.At Fast Forward Labs, bloom filters and a variety of other probabilistic data structures were and explored in detail in the
+report, "Probabilistic Methods for Real-time Streams."
 
-
-At Fast Forward Labs, bloom filters and a variety of other probabilistic data structures were considered 
-and explored in detail in the report, "Probabilistic Methods for Real-time Streams." The report explored 
-K-Min values, LogLog Counters, and their variants. Applications 
+In this blog post, we focus on a more recent development 
 
 
 
