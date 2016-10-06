@@ -2,14 +2,20 @@ from cuckoofilter import CuckooFilter
 
 if __name__ == "__main__":
 
-    max_items = 100000
+    max_items = 1000000
     c_filter = CuckooFilter(max_items, 2)
 
     num_inserted = 0
 
     for i in range(max_items):
-        c_filter.insert(str(i))
-        num_inserted = num_inserted + 1
+        try:
+            c_filter.insert(str(i))
+            num_inserted = num_inserted + 1
+        except:
+            print("number of items inserted -->> " + str(num_inserted))
+            break
+
+    print("number of items inserted -->> " + str(num_inserted))
 
     for i in range(num_inserted):
         assert str(i) in c_filter
@@ -17,7 +23,7 @@ if __name__ == "__main__":
     total_queries = 0
     false_queries = 0
 
-    for i in range(max_items, 3*max_items):
+    for i in range(max_items, 30*max_items):
         if str(i) in c_filter:
             false_queries = false_queries + 1
 

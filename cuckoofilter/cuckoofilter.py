@@ -10,7 +10,7 @@ class CuckooFilter:
                  item_fingerprint_size, num_swaps=100, bucket_size=4):
 
         self.filter_capacity = filter_capacity
-        self.item_fingerprint_size = item_fingerprint_sizemm
+        self.item_fingerprint_size = item_fingerprint_size
         self.num_swaps = num_swaps
         self.bucket_size = bucket_size
         self.cuckoo_size = 0
@@ -69,7 +69,7 @@ class CuckooFilter:
             random_index = random_index % self.filter_capacity
 
             if self.table[random_index].insert(item_fingerprint):
-            	self.cuckoo_size += 1
+                self.cuckoo_size += 1
                 return random_index
 
         # this might not be necessary since the table is now full anyway
