@@ -1,19 +1,18 @@
 
 --General Introduction to Probabilistic Data Structures
-Probabilistic data structures are an important class of data structures that have been increasingly
-useful in a variety of applications, particularly in streaming applications and use cases that require a 
+Probabilistic data structures are an important class of data structures that are
+useful in a variety of applications, particularly in streaming applications and cases that require a 
 significant amount of space. In general, data structures help organize data so that queries about the 
-data can be answered efficiently when posed. Often, these data structures provide exact answers to 
+data stored in them can be answered efficiently. Often, these data structures provide exact answers to 
 queries posed about data stored in them. In contrast, probabilistic data structures do not provide exact
 answers to queries about data stored in them; they typically provide probabilistic estimates to these 
-queries. 
+queries about constituent data. 
 
---Overview of a general use case
-To illustrate this point we'll look at the popular use case of testing to see whether an item in a
+--Illustrative example
+To illustrate this point, we will look at the popular use case of testing to see whether an item in a
 stream of data has been encountered before; membership testing. In the standard case where the data to 
 be analyzed is small enough to fit into memory, each data encountered in the stream can be inserted into
-a set data structure. Once we hit an item for which we would like to test whether we've seen before, we 
-can check to see if it is in the set. This approach works when the data stream is small enough to fit 
+a set data structure. Once we hit an item we would like to test, we can check to see if it is in the set. This approach works when the data stream is small enough to fit 
 into available memory. However, when we have more data than can fit into memory, it might be cumbersome 
 or impossible to use a set for the membership query. Probabilistic data structures are designed to take 
 advantage of such situations. Often in computer science, there is a trade-off between time-efficiency 
@@ -23,39 +22,24 @@ about data stored in them.
 --General description of a bloom filter
 For the membership query described above, the bloom filter is an example of a probabilistic data 
 structure that can provide answers to this query without storing all of the data in a stream. The bloom 
-filter leverages hash functions to encode items compactly in an array. The encoded values are obtained 
-from hashing an item to be inserted into a bloom filter can mapped to indices of an array. These 
+filter leverages hash functions to encode items compactly in an array. Encoded values derived from hashing an item to be inserted into a bloom filter can then be used as indices of an array mapping to such data. These 
 corresponding indices are then set to indicate that the item has been inserted. Now to check if an item 
 has been seen before, the item is hashed and mapped to its expected indices. The obtained indices are 
-then checked to see if the values have been set. If all the values have set then one can say the item 
+then checked to see if the values have been set. If all the values have set, then one can say the item 
 might have been seen before. However, if any of the values are not set, one can say definitely, that the 
 item in question has not been seen before. Hence, membership testing using bloom filters can lead to 
-false positives, however, it eliminates false negatives. This means if a membership test for a bloom 
-filter returns false, then one can be certain that the item in question has not been seen before. 
+false positives, however, it eliminates false negatives. 
 
 
 --More detail about the bloom filter and variants
 Depending on the capacity (size), number of hash functions, and 
 other specifications for the bloom 
-filter, the error rate of a bloom filter can actually be bounded. 
-Traditional bloom filters do not support deletions, since hashing 
-is typically lossy and irreversible; hence deletions or specific 
-manipulations require the entire filter being rebuilt. However, 
-there have been several modifications proposed that modify 
-traditional bloom filters to allow for deletions, unions, and 
-other set operations. One such example is the counting bloom 
-filter, which extends the bloom filter to allow for deletions. At 
-Fast Forward Labs, bloom filters and a variety of other 
-probabilistic data structures were and explored in detail in the
-report, "Probabilistic Methods for Real-time Streams."
+filter, the false positive rate of a bloom filter can actually be bounded. Traditional bloom filters do not support deletions, since hashing is typically lossy and irreversible; hence deletions or specific manipulations require the entire filter to be rebuilt. However, there have been several modifications proposed that modify traditional bloom filters to allow for deletions, unions, and other set operations. One such example is the counting bloom filter, which extends the bloom filter to allow for deletions. At Fast Forward Labs, bloom filters and a variety of other probabilistic data structures were explored in detail in the report, "Probabilistic Methods for Real-time Streams."
 
 --Intro to the cuckoo filter
 In this blog post, we focus on a more recent development: the 
 cuckoo filter. The cuckoo filter was introduced in a 2014 paper 
-as a possible replacement for the bloom filter. It is designed to 
-target applications that store a high number of items with a low 
-false positive rate. Further, the standard cuckoo filter supports 
-dynamic additions and deletions. As noted above, bloom filters 
+as a possible replacement for the bloom filter. It is designed to target applications that store a high number of items with a low false positive rate. Further, the standard cuckoo filter supports dynamic additions and deletions. As noted above, bloom filters 
 need to be extended in order to support deletions. An added 
 advantage of the bloom filter is that optimized implementations 
 use less space than bloom filters while still maintaining low 
