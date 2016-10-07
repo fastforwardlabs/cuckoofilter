@@ -1,4 +1,5 @@
 
+--General Introduction to Probabilistic Data Structures
 Probabilistic data structures are an important class of data structures that have been increasingly
 useful in a variety of applications, particularly in streaming applications and use cases that require a 
 significant amount of space. In general, data structures help organize data so that queries about the 
@@ -7,6 +8,7 @@ queries posed about data stored in them. In contrast, probabilistic data structu
 answers to queries about data stored in them; they typically provide probabilistic estimates to these 
 queries. 
 
+--Overview of a general use case
 To illustrate this point we'll look at the popular use case of testing to see whether an item in a
 stream of data has been encountered before; membership testing. In the standard case where the data to 
 be analyzed is small enough to fit into memory, each data encountered in the stream can be inserted into
@@ -18,6 +20,7 @@ advantage of such situations. Often in computer science, there is a trade-off be
 and the amount of space used. Probabilistic data structures trade off space for exact answers to queries 
 about data stored in them. 
 
+--General description of a bloom filter
 For the membership query described above, the bloom filter is an example of a probabilistic data 
 structure that can provide answers to this query without storing all of the data in a stream. The bloom 
 filter leverages hash functions to encode items compactly in an array. The encoded values are obtained 
@@ -29,11 +32,17 @@ might have been seen before. However, if any of the values are not set, one can 
 item in question has not been seen before. Hence, membership testing using bloom filters can lead to 
 false positives, however, it eliminates false negatives. This means if a membership test for a bloom 
 filter returns false, then one can be certain that the item in question has not been seen before. 
+
+
+--More detail about the bloom filter and variants
 Depending on the capacity (size), number of hash functions, and other specifications for the bloom 
-filter, the error rate of a bloom filter can actually be bounded.At Fast Forward Labs, bloom filters and a variety of other probabilistic data structures were and explored in detail in the
+filter, the error rate of a bloom filter can actually be bounded. Traditional bloom filters do not support deletions, since hashing is typically lossy and irreversible; hence deletions or specific manipulations require the entire filter being rebuilt. However, there have been several modifications proposed that modify traditional bloom filters to allow for deletions, unions, and other set operations. One such example is the counting bloom filter, which extends the bloom filter to allow for deletions. At Fast Forward Labs, bloom filters and a variety of other probabilistic data structures were and explored in detail in the
 report, "Probabilistic Methods for Real-time Streams."
 
-In this blog post, we focus on a more recent development 
+--Intro to the cuckoo filter
+In this blog post, we focus on a more recent development: the cuckoo filter. The cuckoo filter was introduced in a 2014 paper as a possible replacement for the bloom filter. It is designed to target applications that store a high number of items with a low false positive rate. Further, the standard cuckoo filter supports dynamic additions and deletions. As noted above, bloom filters need to be extended in order to support deletions. An added advantage of the bloom filter is that optimized implementations use less space than bloom filters while still maintaining low positive rates.
+
+The cuckoo filter is backed by a cuckoo hash table and only stores fingerprints of items inserted. The fingerprint of an item is a reduced bit string derived from the hash of an item to be inserted in the cuckoo filter. A cuckoo hash table "consists of an array of buckets" where an item to be inserted is mapped to two possible buckets based on two hash functions. Each bucket in the cuckoo hash table can be configured to store a variable number of fingerprints depending on the space and false positive considerations desired. Typically, a cuckoo filter is identified by the its fingerprint size and bucket size. For example, a 2,4 cuckoo filter stores 2 bit length fingerprints and each bucket in the cuckoo hashtable can store up to 4 fingerprints. 
 
 
 
