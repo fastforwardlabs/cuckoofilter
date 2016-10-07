@@ -91,7 +91,9 @@ a new item. As the cuckoo hash table fills up to capacity, more
 items would need to be swapped. To prevent infinite swapping when 
 the cuckoo table fills up, one can limit the swapping to be performed. This number is typically between 400 and 500. 
 
-Lookup and deletions from a cuckoo filter are relatively straightforward. To check if an item is in the 
+Lookup and deletions from a cuckoo filter are relatively straightforward. To check if an item is in the filter, the item is hashed to obtain its fingerprint, and 2 candidate indices. Consequently, each index location is check to see if the fingerprint of the item is present in the bucket. Deletion follows a similar process, but the item's fingerprint is removed from the bucket if it is present. 
+
+To explore the properties of the cuckoo filter, we implemented a version of the filter in python. We 
 
 
 
