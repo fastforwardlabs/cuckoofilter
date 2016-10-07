@@ -71,9 +71,27 @@ two possible buckets based on two hash functions. Each bucket in
 the cuckoo hash table can be configured to store a variable 
 number of fingerprints depending on the space and false positive 
 considerations desired. Typically, a cuckoo filter is identified 
-by the its fingerprint size and bucket size. For example, a 2,4 
+by the its fingerprint size and bucket size. For example, a (2,4)
 cuckoo filter stores 2 bit length fingerprints and each bucket in
- the cuckoo hashtable can store up to 4 fingerprints. 
+the cuckoo hash table can store up to 4 fingerprints. To initialize a cuckoo filter, one specifies the capacity of desired, the fingerprint size, and the size of the bucket in each array. 
+
+As noted in the 2014 paper (cite), the cuckoo filter supports the standard insert, lookup, and delete operations. Of all these operations, the insert operation is most involved. A pseudo code of the insert operation is shown below:
+
+{pseudocode for inserting into the cuckoo table}
+
+As indicated in the algorithm above, to insert an item into the 
+cuckoo filter, one derives two possible indices from the item 
+based on hashing the item and its fingerprint. On obtaining these 
+indices, one then inserts the item fingerprint into one of the 
+above buckets. As the cuckoo hash table begins to fill up, one 
+can encounter a situation where the two possible indices where an 
+item can be inserted has been filled, in this case, inserted 
+items can then be swapped into other buckets to free up space for 
+a new item. As the cuckoo hash table fills up to capacity, more 
+items would need to be swapped. To prevent infinite swapping when 
+the cuckoo table fills up, one can limit the swapping to be performed. This number is typically between 400 and 500. 
+
+Lookup and deletions from a cuckoo filter are relatively straightforward. To check if an item is in the 
 
 
 
