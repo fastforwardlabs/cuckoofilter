@@ -73,9 +73,17 @@ number of fingerprints depending on the space and false positive
 considerations desired. Typically, a cuckoo filter is identified 
 by the its fingerprint size and bucket size. For example, a (2,4)
 cuckoo filter stores 2 bit length fingerprints and each bucket in
-the cuckoo hash table can store up to 4 fingerprints. To initialize a cuckoo filter, one specifies the capacity of desired, the fingerprint size, and the size of the bucket in each array. 
+the cuckoo hash table can store up to 4 fingerprints. To 
+initialize a cuckoo filter, one specifies the capacity of 
+desired, the fingerprint size, and the size of the bucket in 
+each array. 
 
-As noted in the 2014 paper (cite), the cuckoo filter supports the standard insert, lookup, and delete operations. Of all these operations, the insert operation is most involved. A pseudo code of the insert operation is shown below:
+
+As noted in the 2014 paper (cite), the cuckoo filter supports 
+the standard insert, lookup, and delete operations. Of all these 
+operations, the insert operation is most involved. A pseudo code 
+of the insert operation is shown below:
+
 
 {pseudocode for inserting into the cuckoo table}
 
