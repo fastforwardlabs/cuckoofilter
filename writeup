@@ -35,8 +35,18 @@ filter returns false, then one can be certain that the item in question has not 
 
 
 --More detail about the bloom filter and variants
-Depending on the capacity (size), number of hash functions, and other specifications for the bloom 
-filter, the error rate of a bloom filter can actually be bounded. Traditional bloom filters do not support deletions, since hashing is typically lossy and irreversible; hence deletions or specific manipulations require the entire filter being rebuilt. However, there have been several modifications proposed that modify traditional bloom filters to allow for deletions, unions, and other set operations. One such example is the counting bloom filter, which extends the bloom filter to allow for deletions. At Fast Forward Labs, bloom filters and a variety of other probabilistic data structures were and explored in detail in the
+Depending on the capacity (size), number of hash functions, and 
+other specifications for the bloom 
+filter, the error rate of a bloom filter can actually be bounded. 
+Traditional bloom filters do not support deletions, since hashing 
+is typically lossy and irreversible; hence deletions or specific 
+manipulations require the entire filter being rebuilt. However, 
+there have been several modifications proposed that modify 
+traditional bloom filters to allow for deletions, unions, and 
+other set operations. One such example is the counting bloom 
+filter, which extends the bloom filter to allow for deletions. At 
+Fast Forward Labs, bloom filters and a variety of other 
+probabilistic data structures were and explored in detail in the
 report, "Probabilistic Methods for Real-time Streams."
 
 --Intro to the cuckoo filter
@@ -64,7 +74,7 @@ considerations desired. Typically, a cuckoo filter is identified
 by the its fingerprint size and bucket size. For example, a 2,4 
 cuckoo filter stores 2 bit length fingerprints and each bucket in
  the cuckoo hashtable can store up to 4 fingerprints. 
- 
+
 
 
 
