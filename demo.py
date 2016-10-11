@@ -2,7 +2,7 @@ from cuckoofilter import CuckooFilter
 
 if __name__ == "__main__":
 
-    max_items = 1000000
+    max_items = 100000
     c_filter = CuckooFilter(max_items, 2)
 
     num_inserted = 0
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     total_queries = 0
     false_queries = 0
 
-    for i in range(max_items, 30*max_items):
+    for i in range(max_items, 10*max_items):
         if str(i) in c_filter:
             false_queries = false_queries + 1
 
