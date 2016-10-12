@@ -1,10 +1,13 @@
 from cuckoofilter import CuckooFilter
+from cuckoofilter import CountingBloomFilter
 
 if __name__ == "__main__":
 
     max_items = 100000
     c_filter = CuckooFilter(max_items, 2)
+    b_filter = CountingBloomFilter(10000)
 
+    print("bloom filter capacity is -->>"  + str(b_filter.get_meta()['capacity']))
     num_inserted = 0
 
     for i in range(max_items):

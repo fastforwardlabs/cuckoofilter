@@ -95,7 +95,7 @@ from the bucket if it is present.
 To explore the properties of the cuckoo filter, we implemented a 
 version of the filter in python. We compare the behavior of this 
 filter to a counting bloom filter implementation in python as 
-well. While benchmarking with often with fraught with 
+well. While benchmarking is often with fraught with 
 intricacies, we present the comparison here to demonstrate the 
 capabilities of the cuckoo filter relative to the counting bloom 
 filter. For more rigorous benchmarking take a look at the 

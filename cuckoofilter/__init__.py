@@ -1,1 +1,2 @@
 from .cuckoofilter import CuckooFilter
+from .counting_bloom_filter import CountingBloomFilter
