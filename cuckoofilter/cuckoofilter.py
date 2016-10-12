@@ -7,7 +7,7 @@ from . import cuckootable
 class CuckooFilter:
 
     def __init__(self, filter_capacity,
-                 item_fingerprint_size, num_swaps=100, bucket_size=4):
+                 item_fingerprint_size, num_swaps=500, bucket_size=4):
 
         self.filter_capacity = filter_capacity
         self.item_fingerprint_size = item_fingerprint_size
