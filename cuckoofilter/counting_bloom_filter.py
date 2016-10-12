@@ -53,7 +53,7 @@ class CountingBloomFilter(object):
         Generates the indicies corresponding to the given key
         """
         h1, h2 = mmh3.hash64(key)
-        for i in xrange(self.num_hashes):
+        for i in range(self.num_hashes):
             yield (h1 + i * h2) % self.num_bytes
 
     def add(self, key, N=1):
@@ -98,7 +98,7 @@ class CountingBloomFilter(object):
         """
         Removes `N` counts to all indicies.  Useful for expirations
         """
-        for i in xrange(self.num_bytes):
+        for i in range(self.num_bytes):
             self.decrement_bucket(i, N)
 
     def contains(self, key):

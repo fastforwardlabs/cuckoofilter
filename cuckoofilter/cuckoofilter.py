@@ -102,3 +102,6 @@ class CuckooFilter:
     def get_load_factor(self):
         load_factor = self.size / (self.filter_capacity * self.bucket_size)
         return load_factor
+
+    def get_size(self):
+        return self.cuckoo_size
