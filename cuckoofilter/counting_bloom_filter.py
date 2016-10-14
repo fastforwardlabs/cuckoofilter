@@ -159,6 +159,11 @@ class CountingBloomFilter(object):
     def _save_data(self, filename):
         np.save(filename, self.data)
 
+    def number_of_hashes(self):
+        return self.num_hashes
+
+    def number_of_bytes(self):
+        return self.num_bytes
 
     @classmethod
     def load(cls, data_path):

@@ -18,7 +18,7 @@ class CuckooTable:
         # get the hypothetical
         try:
             index = self.bucket.index(item_fingerprint)
-            del self.bucket.index[index]
+            del self.bucket[index]
             return True
         except ValueError:
             return False

@@ -44,7 +44,6 @@ class CuckooFilter:
         return index_1, index_2
 
     def insert(self, item_to_insert):
-
         index_1, index_2 = self.obtain_indices_from_item(item_to_insert)
         item_fingerprint = self.obtain_fingerprint(item_to_insert)
 
@@ -79,12 +78,12 @@ class CuckooFilter:
         item_fingerprint = self.obtain_fingerprint(item_to_remove)
         index_1, index_2 = self.obtain_indices_from_item(item_to_remove)
 
-        if self.table[index_1].delete(item_fingerprint):
-            self.size = self.size - 1
+        if self.table[index_1].remove(item_fingerprint):
+            self.cuckoo_size = self.cuckoo_size - 1
             return True
 
-        if self.table[index_2].delete(item_fingerprint):
-            self.size = self.size - 1
+        if self.table[index_2].remove(item_fingerprint):
+            self.cuckoo_size = self.cuckoo_size - 1
             return True
 
         return False
