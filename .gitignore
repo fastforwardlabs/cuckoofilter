@@ -1,0 +1,3 @@
+*.py[cod]
+.ipynb_checkpoints/
+__pycache__/

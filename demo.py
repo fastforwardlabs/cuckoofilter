@@ -3,7 +3,7 @@ from cuckoofilter import CountingBloomFilter
 
 if __name__ == "__main__":
 
-    max_items = 100000
+    max_items = 10000
     c_filter = CuckooFilter(2*max_items, 2)
     b_filter = CountingBloomFilter(2*max_items)
 
