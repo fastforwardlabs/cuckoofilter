@@ -1,5 +1,8 @@
 """
 This file is a copy paste of the counting bloom filter 
+implementation in https://github.com/mynameisfiber/fuggetaboutit
+
+See that repository for implementations details, further tests etc. 
 """
 
 import logging
