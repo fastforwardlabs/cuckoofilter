@@ -13,14 +13,14 @@ if __name__ == "__main__":
             c_filter.insert(str(i))
             b_filter.add(str(i))
             num_inserted = num_inserted + 1
-        except: #the exception here is for the cuckoo filter. 
+        except:  # the exception here is for the cuckoo filter.
             print("number of items inserted -->> " + str(num_inserted))
             break
 
-
     print("number of items inserted -->> " + str(num_inserted))
     print("size of the bloom filter is  -->> " + str(int(b_filter.get_size())))
-    print("size of the cuckoo filter is  -->> " + str(int(c_filter.get_size())))
+    print("size of the cuckoo filter is  -->> " +
+          str(int(c_filter.get_size())))
 
     print()
 
@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     total_queries = 0
     false_queries_cuckoo = 0
-    false_queries_bloom = 0 
+    false_queries_bloom = 0
 
     for i in range(max_items, 10*max_items):
         if str(i) in c_filter:
@@ -43,6 +43,7 @@ if __name__ == "__main__":
 
         total_queries = total_queries + 1
 
-    print('Cuckoo filter false positive rate is {:%}'.format(false_queries_cuckoo / total_queries))
-    print('Counting bloom filter false positive rate is {:%}'.format(false_queries_bloom / total_queries))
-
+    print('Cuckoo filter false positive rate is {:%}'.format(
+        false_queries_cuckoo / total_queries))
+    print('Counting bloom filter false positive rate is {:%}'.format(
+        false_queries_bloom / total_queries))

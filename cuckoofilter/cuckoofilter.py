@@ -44,6 +44,10 @@ class CuckooFilter:
         return index_1, index_2
 
     def insert(self, item_to_insert):
+        # check that item_to_insert is a string.
+        if not isinstance(item_to_insert, str):
+            raise ValueError("Item being inserted not of type string")
+
         index_1, index_2 = self.obtain_indices_from_item(item_to_insert)
         item_fingerprint = self.obtain_fingerprint(item_to_insert)
 
@@ -72,7 +76,7 @@ class CuckooFilter:
                 return random_index
 
         # this might not be necessary since the table is now full anyway
-        raise Exception("The CuckooFilter is now full!")
+        raise Exception("CuckooFilter has filled up!")
 
     def remove(self, item_to_remove):
         item_fingerprint = self.obtain_fingerprint(item_to_remove)
@@ -104,3 +108,6 @@ class CuckooFilter:
 
     def get_size(self):
         return self.cuckoo_size
+
+    def get_capacity(self):
+        return self.filter_capacity
