@@ -1,3 +1,10 @@
+"""
+This file contains a few functions to help
+test the functionality of the CuckooFilter. 
+
+As of this note, all of the tests pass. 
+"""
+
 import unittest
 from cuckoofilter import  CuckooFilter
 
