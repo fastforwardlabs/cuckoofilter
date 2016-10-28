@@ -43,7 +43,11 @@ class CuckooFilter:
 
         return index_1, index_2
 
-    def insert(self, item_to_insert):
+    def insert(self, item):
+        """Here for legacy reasons... use .add"""
+        return self.add(item)
+
+    def add(self, item_to_insert):
         # check that item_to_insert is a string.
         if not isinstance(item_to_insert, str):
             raise ValueError("Item being inserted not of type string")
