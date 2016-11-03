@@ -107,7 +107,8 @@ class CuckooFilter:
         return bool_contains
 
     def get_load_factor(self):
-        load_factor = self.size / (self.filter_capacity * self.bucket_size)
+        load_factor = self.cuckoo_size / \
+            (self.filter_capacity * self.bucket_size)
         return load_factor
 
     def get_size(self):

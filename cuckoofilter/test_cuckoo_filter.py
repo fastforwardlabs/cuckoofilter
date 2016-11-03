@@ -6,7 +6,8 @@ As of this note, all of the tests pass.
 """
 
 import unittest
-from cuckoofilter import  CuckooFilter
+from cuckoofilter import CuckooFilter
+
 
 class CuckooFilterTest(unittest.Testcase):
 
@@ -17,23 +18,19 @@ class CuckooFilterTest(unittest.Testcase):
 
     def test_cuckoo_filter_creation(self):
 
-        print("yes yes")
-
-        #test to cuckoo filter creation
+        # test to cuckoo filter creation
         self.assertIsNotNone(self.cuckoofilter)
 
-        #check that it uses the input arguments. 
+        # check that it uses the input arguments.
         self.assertEqual(self.capacity, self.cuckoofilter.get_capacity())
 
-
     def test_insertions(self):
-        #insert a string into the cuckoo filter
+        # insert a string into the cuckoo filter
         initial_size = self.cuckoofilter.get_size()
 
         self.cuckoofilter.insert("James")
 
         self.assertEqual(initial_size + 1, self.cuckoofilter.get_size())
-
 
     def test_deletions(self):
         self.cuckoofilter.insert("New")
@@ -42,9 +39,8 @@ class CuckooFilterTest(unittest.Testcase):
 
         self.assertFalse("New" in self.cuckoofilter)
 
-        #test deleting an element that was not inserted
+        # test deleting an element that was not inserted
         self.assertFalse(self.cuckoofilter.remove("Not inserted"))
-
 
     def test_containing(self):
 
@@ -62,5 +58,4 @@ class CuckooFilterTest(unittest.Testcase):
 
 
 if __name__ == '__main__':
-    print("here")
     unitest.main()
