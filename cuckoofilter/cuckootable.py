@@ -5,7 +5,14 @@ class CuckooTable:
 
     def __init__(self, size=4):
         self.size = size
-        self.bucket = []  # we represent the bucket as a list
+
+        """
+        We represent the buckets as lists. A numpy array with
+        pre-specified length might be better, but the 
+        python list is quite flexible. 
+
+        """
+        self.bucket = []
 
     def insert(self, item_fingerprint):
         if len(self.bucket) < self.size:
@@ -14,7 +21,6 @@ class CuckooTable:
         return False
 
     def remove(self, item_fingerprint):
-
         # get the hypothetical
         try:
             index = self.bucket.index(item_fingerprint)
@@ -22,6 +28,12 @@ class CuckooTable:
             return True
         except ValueError:
             return False
+
+    """
+    We implement swapping as a method of the bucket class
+    to make it easier when performing swaps. 
+    
+    """
 
     def swap_fingerprints(self, item_fingerprint):
         index_to_select = random.randrange(0, len(self.bucket))
