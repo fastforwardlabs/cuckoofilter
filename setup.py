@@ -2,9 +2,9 @@ from setuptools import setup
 
 setup(name="cuckoofilter",
       version="0.0.1",
-      description="",
-      url="",
-      author="Fast Forward Labs",
+      description="Python implementation of Cuckoo filter.",
+      url="www.github.com/fastforwardlabs/cuckoofilter",
+      author="Julius Adebayo, Fast Forward Labs",
       license="MIT",
       packages=["cuckoofilter"],
       install_requires=["mmh3",
