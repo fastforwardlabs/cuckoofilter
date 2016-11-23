@@ -20,14 +20,17 @@ import mmh3
 BLOOM_FILENAME = 'bloom.npy'
 META_FILENAME = 'meta.json'
 
+
 def remove_recursive(path):
     if os.path.isdir(path):
         shutil.rmtree(path)
     elif os.path.exists(path):
         os.remove(path)
 
+
 class CountingBloomFilter(object):
     _ENTRIES_PER_8BYTE = 1
+
     def __init__(self, capacity, data_path=None, error=0.005, id=None):
         self.capacity = capacity
         self.error = error
@@ -47,7 +50,8 @@ class CountingBloomFilter(object):
             self.data = np.load(bloom_filename)
             self.num_non_zero = np.count_nonzero(self.data)
         else:
-            size = int(math.ceil(self.num_bytes / float(self._ENTRIES_PER_8BYTE)))
+            size = int(
+                math.ceil(self.num_bytes / float(self._ENTRIES_PER_8BYTE)))
             self.data = np.zeros((size,), dtype=np.uint8, order='C')
             self.num_non_zero = 0
 
@@ -115,7 +119,10 @@ class CountingBloomFilter(object):
         """
         Returns the density of the bloom which can be used to determine if the bloom is "full"
         """
-        return -self.num_bytes * math.log(1 - self.num_non_zero / float(self.num_bytes)) / float(self.num_hashes) 
+        return (-self.num_bytes *
+                math.log(1 - self.num_non_zero / float(self.num_bytes)) /
+                float(self.num_hashes)
+                )
 
     def get_meta(self):
         return {
@@ -133,7 +140,8 @@ class CountingBloomFilter(object):
 
     def save(self, data_path=None):
         data_path, meta_path, bloom_path = self._get_paths(data_path)
-        tmp_data_path, tmp_meta_path, tmp_bloom_path = self._get_paths(data_path + '-tmp')
+        tmp_data_path, tmp_meta_path, tmp_bloom_path = self._get_paths(
+            data_path + '-tmp')
 
         remove_recursive(tmp_data_path)
         os.makedirs(tmp_data_path)
@@ -146,7 +154,8 @@ class CountingBloomFilter(object):
 
     def _get_paths(self, data_path):
         if not (data_path or self.data_path):
-            raise PersistenceDisabledException("You cannot save without having data_path set.")
+            raise PersistenceDisabledException(
+                "You cannot save without having data_path set.")
         if not data_path:
             data_path = self.data_path
 
@@ -182,7 +191,6 @@ class CountingBloomFilter(object):
         del kwargs['capacity']
 
         return cls(capacity, **kwargs)
-
 
     def __contains__(self, key):
         return self.contains(key)
