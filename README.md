@@ -20,7 +20,7 @@ Cuckoo filter.
 
 # Demo
 
-Below we show how to going about using this package. 
+Below we show how to go about using this package. 
 
 ```python
 >>> from cuckoofilter import CuckooFilter
@@ -35,7 +35,7 @@ James in c_filter == True
 James in c_filter == False
 ```
 
-Similarly the counting Bloom filter can be used as well.
+Similarly, the counting Bloom filter can be used as well.
 
 ```python
 >>> from cuckoofilter import CountingBloomFilter
