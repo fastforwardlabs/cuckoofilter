@@ -41,7 +41,7 @@ Similarly, the counting Bloom filter can be used as well.
 >>> from cuckoofilter import CountingBloomFilter
 >>> b_filter = CountingBloomFilter(10000)
 
->>> b_filter.insert('James')
+>>> b_filter.add('James')
 >>> print("James in c_filter == {}".format("James" in c_filter))
 James in b_filter == True
 
